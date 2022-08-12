@@ -31,7 +31,11 @@ def download_song():
                 else:
                     print('DIRECTORY INVALID --------> COPIED TO DEFAULT SONG DIRECTORY')
                     destination = internal_storage_music
-            song.download(output_path = destination)
+            out_file = song.download(output_path = destination)
+            #save as mp3
+            base, ext = os.path.splitext(out_file)
+            new_file = base + '.mp3'
+            os.rename(out_file, new_file)
             print(yt.title + " has been successfully downloaded.")
         except:
             print('CONNECTION ERROR')
@@ -43,13 +47,17 @@ def download_song():
                 if not(os.path.exists(destination)):
                     print('DIRECTORY INVALID --------> COPIED TO DEFAULT SONG DIRECTORY')
                     destination = '/home/jarvis/Music'
-                song.download(output_path = destination)
+                out_file = song.download(output_path = destination)
+                #save as mp3
+                base, ext = os.path.splitext(out_file)
+                new_file = base + '.mp3'
+                os.rename(out_file, new_file)
                 print(yt.title + " has been successfully downloaded.") 
         except:
             print('CONNECTION ERROR') 
 
 def download_video():
-    quality = ['360p', '480p', '720p', '1080p']
+    quality = ['360p', '480p', '720p', '1080p', '1440p']
     yt, playlist = None, None
     url = str(input('URL: '))
     destination = str(input('PATH: '))
@@ -68,7 +76,6 @@ def download_video():
     try:
         quality_wanted = int(input('1.SD   2.HD    3.FHD : '))
         quality[quality_wanted]
-        print(quality[quality_wanted])
     except:
         quality_wanted = 2
     if yt:
